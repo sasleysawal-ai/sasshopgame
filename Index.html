@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASLEY GAME TOPUP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101014;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#19191f;text-align:center;border-bottom:2px solid #e32636}
+.logo{font-size:30px;font-weight:bold}
+.logo span{color:#ed2939}
+header p{color:#aaa;font-size:13px}
+main{max-width:600px;margin:auto;padding:20px}
+.banner{background:linear-gradient(135deg,#3b080d,#17171d);padding:28px 20px;border-radius:15px;text-align:center}
+.banner h1{font-size:27px}
+.banner p{color:#ddd}
+h2{font-size:19px;margin-top:28px}
+.games{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.game{background:#202027;border:1px solid #383840;padding:20px 10px;border-radius:12px;text-align:center;cursor:pointer;color:white;font-weight:bold}
+.game.active{border:2px solid #ed2939;background:#32151a}
+form{background:#202027;padding:18px;border-radius:12px;margin-top:15px}
+label{display:block;margin:14px 0 7px;font-size:14px}
+input,select{width:100%;padding:13px;border:1px solid #444;background:#111;color:white;border-radius:8px}
+button{width:100%;padding:15px;background:#e32636;color:white;border:0;border-radius:9px;font-size:16px;font-weight:bold;margin-top:20px}
+.note{font-size:12px;color:#aaa;text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SASLEY<span>.</span></div>
+<p>GAME TOPUP • FAST • EASY • SECURE</p>
+</header>
+<main>
+<section class="banner">
+<h1>TOP UP YOUR GAME</h1>
+<p>Welcome to SASLEY GAME TOPUP</p>
+</section>
+<h2>PILIH GAME</h2>
+<div class="games">
+<div class="game active" onclick="choose(this,'Mobile Legends')">🎮<br>Mobile Legends</div>
+<div class="game" onclick="choose(this,'PUBG Mobile')">🔫<br>PUBG Mobile</div>
+<div class="game" onclick="choose(this,'Free Fire')">🔥<br>Free Fire</div>
+<div class="game" onclick="choose(this,'Honor of Kings')">⚔️<br>Honor of Kings</div>
+</div>
+<h2>MAKLUMAT PESANAN</h2>
+<form onsubmit="order(event)">
+<label>Game dipilih</label>
+<input id="game" value="Mobile Legends" readonly>
+<label>User ID</label>
+<input id="uid" placeholder="Masukkan User ID" required>
+<label>Server ID (jika diperlukan)</label>
+<input id="server" placeholder="Masukkan Server ID">
+<label>Pilih pakej</label>
+<select id="package" required>
+<option value="">Pilih pakej topup</option>
+<option>50 Diamonds</option>
+<option>100 Diamonds</option>
+<option>250 Diamonds</option>
+<option>500 Diamonds</option>
+<option>1000 Diamonds</option>
+</select>
+<button type="submit">TEMPAH SEKARANG</button>
+</form>
+<p class="note">SASLEY GAME TOPUP © 2026</p>
+</main>
+<script>
+function choose(el,name){
+document.querySelectorAll('.game').forEach(x=>x.classList.remove('active'));
+el.classList.add('active');
+document.getElementById('game').value=name;
+}
+function order(e){
+e.preventDefault();
+let g=document.getElementById('game').value;
+let uid=document.getElementById('uid').value;
+let server=document.getElementById('server').value;
+let pack=document.getElementById('package').value;
+let message=`Tempahan SASLEY GAME TOPUP\nGame: ${g}\nUser ID: ${uid}\nServer ID: ${server}\nPakej: ${pack}`;
+alert(message+"\n\nSistem pembayaran belum disambungkan.");
+}
+</script>
+</body>
+</html>
