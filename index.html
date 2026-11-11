@@ -67,9 +67,26 @@ document.querySelectorAll('.game').forEach(x=>x.classList.remove('active'));
 el.classList.add('active');
 document.getElementById('game').value=name;
 }
+
 function order(e){
 e.preventDefault();
-alert('Ini borang demo. Pembayaran belum disambungkan.');
+
+const game = document.getElementById('game').value;
+const uid = document.getElementById('uid').value;
+const server = document.getElementById('server').value;
+const pack = document.getElementById('pack').value;
+
+const message = `PESANAN SASSHOPGAME
+Game: ${game}
+User ID: ${uid}
+Server ID: ${server}
+Pakej: ${pack}`;
+
+window.open(
+'https://wa.me/60102888699?text=' +
+encodeURIComponent(message),
+'_blank'
+);
 }
 </script>
 </body>
