@@ -1,134 +1,355 @@
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SASSHOPGAME - Game Topup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASSHOPGAME - Game Topup Store</title>
+
 <style>
-body{margin:0;background:#101014;color:white;font-family:Arial}
-header{text-align:center;padding:25px;background:#1b1b22;border-bottom:3px solid #e52b3b}
-header h1{margin:0;color:white}
-header span{color:#f04444}
-.hero{margin:20px;padding:35px 15px;text-align:center;border-radius:15px;background:linear-gradient(135deg,#670d19,#17171e)}
-main{max-width:600px;margin:auto;padding:10px 20px}
-h2{margin-top:30px}
-.games{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.game{background:#22222b;border:1px solid #444;padding:25px 5px;text-align:center;border-radius:12px;cursor:pointer}
-.game.active{border:2px solid #f04444}
-form{background:#202027;padding:18px;border-radius:12px}
-label{display:block;margin:15px 0 7px}
-input,select{width:100%;padding:13px;box-sizing:border-box;background:#111;color:white;border:1px solid #555;border-radius:8px}
-button{width:100%;padding:15px;margin-top:20px;background:#ed2939;color:white;border:0;border-radius:8px;font-weight:bold}
-footer{text-align:center;padding:30px;color:#aaa}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #090909;
+  color: white;
+}
+
+header {
+  background: #151515;
+  padding: 22px 15px;
+  text-align: center;
+  border-bottom: 2px solid #e50914;
+}
+
+header h1 {
+  margin: 0;
+  color: #ff2020;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+header p {
+  color: #aaa;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 15px;
+}
+
+.hero h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.hero span {
+  color: #ff2020;
+}
+
+.hero p {
+  color: #aaa;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+  padding: 15px;
+}
+
+h3 {
+  color: #ff3030;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.game {
+  background: #191919;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 18px 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.game.active {
+  border: 2px solid #ff2020;
+  background: #301010;
+}
+
+.form-box {
+  background: #171717;
+  padding: 20px;
+  margin-top: 25px;
+  border-radius: 12px;
+  border: 1px solid #333;
+}
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  background: #090909;
+  border: 1px solid #444;
+  border-radius: 7px;
+  color: white;
+  font-size: 15px;
+}
+
+button.order {
+  width: 100%;
+  padding: 16px;
+  margin-top: 22px;
+  background: #e50914;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.order:disabled {
+  opacity: .5;
+}
+
+#product-price {
+  color: #ff4444;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+#message {
+  color: #aaa;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #777;
+  font-size: 12px;
+}
 </style>
 </head>
-<body>
-<header>
-<h1>SAS<span>SHOPGAME</span></h1>
-<p>YOUR GAME YOUR POWER</p>
-</header>
-<div class="hero">
-<h2>GAME TOPUP STORE</h2>
-<p>Fast • Easy • Affordable</p>
-</div>
-<main>
-<h2>PILIH GAME</h2>
-<div class="games">
-<div class="game active" onclick="pick(this,'Mobile Legends')">🎮<br>Mobile Legends</div>
-<div class="game" onclick="pick(this,'PUBG Mobile')">🔫<br>PUBG Mobile</div>
-<div class="game" onclick="pick(this,'Free Fire')">🔥<br>Free Fire</div>
-<div class="game" onclick="pick(this,'Honor of Kings')">⚔️<br>Honor of Kings</div>
-</div>
-<h2>BUAT PESANAN</h2>
-<form onsubmit="order(event)">
-<label>Game</label>
-<input id="game" value="Mobile Legends" readonly>
-<label>User ID</label>
-<input id="uid" placeholder="Masukkan User ID" required>
-<label>Server ID</label>
-<input id="server" placeholder="Masukkan Server ID">
-<label>Pilih pakej</label>
-<select id="pack" required>
-  <option value="">Memuatkan pakej...</option>
-</select>
 
-<div id="product-price"></div>
+<body>
+
+<header>
+  <h1>SAS SHOPGAME</h1>
+  <p>YOUR GAME YOUR POWER</p>
+</header>
+
+<section class="hero">
+  <h2>GAME <span>TOPUP STORE</span></h2>
+  <p>Topup game pilihan anda dengan mudah!</p>
+</section>
+
+<div class="container">
+
+  <h3>PILIH GAME</h3>
+
+  <div class="games">
+    <button class="game active" type="button"
+      onclick="pick(this,'Mobile Legends')">
+      Mobile Legends
+    </button>
+
+    <button class="game" type="button"
+      onclick="pick(this,'PUBG Mobile')">
+      PUBG Mobile
+    </button>
+
+    <button class="game" type="button"
+      onclick="pick(this,'Free Fire')">
+      Free Fire
+    </button>
+
+    <button class="game" type="button"
+      onclick="pick(this,'Honor of Kings')">
+      Honor of Kings
+    </button>
+  </div>
+
+  <div class="form-box">
+    <h3>MAKLUMAT TOPUP</h3>
+
+    <form id="order-form" onsubmit="order(event)">
+
+      <label>Game pilihan</label>
+      <input id="game" value="Mobile Legends" readonly>
+
+      <label>User ID</label>
+      <input id="uid" placeholder="Masukkan User ID" required>
+
+      <label>Server ID (jika diperlukan)</label>
+      <input id="server" placeholder="Masukkan Server ID">
+
+      <label>Pilih pakej topup</label>
+      <select id="pack" required>
+        <option value="">Sedang memuatkan pakej...</option>
+      </select>
+
+      <div id="product-price"></div>
+      <div id="message">Sedang menyambung ke KXR...</div>
+
+      <button class="order" id="order-button" type="submit" disabled>
+        TEMPAH SEKARANG
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<footer>
+  © 2026 SAS SHOPGAME. All Rights Reserved.
+</footer>
 
 <script>
+const API_URL =
+  "https://sasshopgame.sasleysawal.workers.dev/products";
+
+const WHATSAPP = "60102888699";
+
+let allProducts = [];
+let selectedGame = "Mobile Legends";
+
+const pack = document.getElementById("pack");
+const message = document.getElementById("message");
+const priceBox = document.getElementById("product-price");
+const orderButton = document.getElementById("order-button");
+
+function pick(button, game) {
+  document.querySelectorAll(".game").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  selectedGame = game;
+  document.getElementById("game").value = game;
+
+  renderProducts();
+}
+
 async function loadProducts() {
-  const pack = document.getElementById("pack");
-  const price = document.getElementById("product-price");
-
   try {
-    const response = await fetch(
-      "https://sasshopgame.sasleysawal.workers.dev/products"
-    );
-
+    const response = await fetch(API_URL);
     const data = await response.json();
 
-    if (!data.success || !Array.isArray(data.products)) {
-      throw new Error("Produk gagal dimuatkan");
+    if (!response.ok || !data.success) {
+      throw new Error("Produk tidak tersedia");
     }
 
-    pack.innerHTML = '<option value="">Pilih pakej</option>';
+    allProducts = data.products || [];
+    renderProducts();
 
-    data.products
-      .filter(p => p.game === "Mobile Legends")
-      .forEach(p => {
-        const option = document.createElement("option");
-        option.value = p.id;
-        option.textContent = p.name + " - RM" + p.customer_price;
-        option.dataset.price = p.customer_price;
-        pack.appendChild(option);
-      });
-
-    pack.addEventListener("change", () => {
-      const selected = pack.selectedOptions[0];
-      price.textContent = selected.dataset.price
-        ? "Harga: RM" + selected.dataset.price
-        : "";
-    });
   } catch (error) {
     pack.innerHTML = '<option value="">Gagal memuatkan pakej</option>';
-    price.textContent = error.message;
+    message.textContent = "Gagal sambung ke KXR. Cuba muat semula halaman.";
   }
+}
+
+function renderProducts() {
+  pack.innerHTML = "";
+  priceBox.textContent = "";
+
+  const products = allProducts.filter(product =>
+    String(product.game || "").trim().toLowerCase() ===
+    selectedGame.trim().toLowerCase()
+  );
+
+  if (products.length === 0) {
+    pack.innerHTML = '<option value="">Tiada pakej tersedia</option>';
+    message.textContent = "Tiada pakej untuk game ini buat masa ini.";
+    orderButton.disabled = true;
+    return;
+  }
+
+  const firstOption = document.createElement("option");
+  firstOption.value = "";
+  firstOption.textContent = "Pilih pakej anda";
+  pack.appendChild(firstOption);
+
+  products.forEach(product => {
+    const option = document.createElement("option");
+    option.value = product.id;
+    option.textContent =
+      product.name + " - RM" +
+      Number(product.customer_price).toFixed(2);
+
+    option.dataset.price = product.customer_price;
+    option.dataset.name = product.name;
+
+    pack.appendChild(option);
+  });
+
+  message.textContent = products.length + " pakej berjaya dimuatkan.";
+  orderButton.disabled = false;
+}
+
+pack.addEventListener("change", function() {
+  const option = pack.options[pack.selectedIndex];
+
+  if (!option.value) {
+    priceBox.textContent = "";
+    return;
+  }
+
+  priceBox.textContent =
+    "Harga: RM" + Number(option.dataset.price).toFixed(2);
+});
+
+function order(event) {
+  event.preventDefault();
+
+  const uid = document.getElementById("uid").value.trim();
+  const server = document.getElementById("server").value.trim();
+  const option = pack.options[pack.selectedIndex];
+
+  if (!uid || !pack.value) {
+    alert("Sila isi User ID dan pilih pakej.");
+    return;
+  }
+
+  const productName = option.dataset.name;
+  const price = Number(option.dataset.price).toFixed(2);
+
+  const text =
+    "ASSALAMUALAIKUM SAS SHOPGAME\n\n" +
+    "Saya ingin membuat pesanan topup:\n\n" +
+    "Game: " + selectedGame + "\n" +
+    "User ID: " + uid + "\n" +
+    "Server ID: " + (server || "Tidak diisi") + "\n" +
+    "Pakej: " + productName + "\n" +
+    "Harga: RM" + price + "\n\n" +
+    "Mohon bantuan untuk pesanan saya.";
+
+  const whatsappURL =
+    "https://wa.me/" + WHATSAPP +
+    "?text=" + encodeURIComponent(text);
+
+  window.open(whatsappURL, "_blank");
 }
 
 loadProducts();
 </script>
 
-<button type="submit">TEMPAH SEKARANG</button>
-</form>
-</main>
-<footer>SASSHOPGAME © 2026</footer>
-<script>
-function pick(el,name){
-document.querySelectorAll('.game').forEach(x=>x.classList.remove('active'));
-el.classList.add('active');
-document.getElementById('game').value=name;
-}
-
-function order(e){
-e.preventDefault();
-
-const game = document.getElementById('game').value;
-const uid = document.getElementById('uid').value;
-const server = document.getElementById('server').value;
-const pack = document.getElementById('pack').value;
-
-const message = `PESANAN SASSHOPGAME
-Game: ${game}
-User ID: ${uid}
-Server ID: ${server}
-Pakej: ${pack}`;
-
-window.open(
-'https://wa.me/60102888699?text=' +
-encodeURIComponent(message),
-'_blank'
-);
-}
-</script>
 </body>
 </html>
