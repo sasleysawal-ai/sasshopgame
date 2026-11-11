@@ -50,13 +50,54 @@ footer{text-align:center;padding:30px;color:#aaa}
 <input id="server" placeholder="Masukkan Server ID">
 <label>Pilih pakej</label>
 <select id="pack" required>
-<option value="">Pilih pakej</option>
-<option>50 Diamonds</option>
-<option>100 Diamonds</option>
-<option>250 Diamonds</option>
-<option>500 Diamonds</option>
-<option>1000 Diamonds</option>
-</select> 
+  <option value="">Memuatkan pakej...</option>
+</select>
+
+<div id="product-price"></div>
+
+<script>
+async function loadProducts() {
+  const pack = document.getElementById("pack");
+  const price = document.getElementById("product-price");
+
+  try {
+    const response = await fetch(
+      "https://sasshopgame.sasleysawal.workers.dev/products"
+    );
+
+    const data = await response.json();
+
+    if (!data.success || !Array.isArray(data.products)) {
+      throw new Error("Produk gagal dimuatkan");
+    }
+
+    pack.innerHTML = '<option value="">Pilih pakej</option>';
+
+    data.products
+      .filter(p => p.game === "Mobile Legends")
+      .forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.id;
+        option.textContent = p.name + " - RM" + p.customer_price;
+        option.dataset.price = p.customer_price;
+        pack.appendChild(option);
+      });
+
+    pack.addEventListener("change", () => {
+      const selected = pack.selectedOptions[0];
+      price.textContent = selected.dataset.price
+        ? "Harga: RM" + selected.dataset.price
+        : "";
+    });
+  } catch (error) {
+    pack.innerHTML = '<option value="">Gagal memuatkan pakej</option>';
+    price.textContent = error.message;
+  }
+}
+
+loadProducts();
+</script>
+
 <button type="submit">TEMPAH SEKARANG</button>
 </form>
 </main>
